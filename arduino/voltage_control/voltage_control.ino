@@ -1,4 +1,5 @@
 int level;
+int adc_level;
 
 void setup()
 {
@@ -18,6 +19,6 @@ void loop()
   		analogWrite(DAC0, level);
   	}
   	
-  	Serial.println(analogRead(A7));
+  	adc_level = analogRead(A7);
   	delay(2);
 }
