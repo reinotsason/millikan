@@ -4,6 +4,7 @@ int adc_level;
 void setup()
 {
 	Serial.begin(115200);
+	Serial.setTimeout(50); // Sets timeout for parseFloat to 50 ms
 
 	analogWriteResolution(12);
 	analogReadResolution(12);
