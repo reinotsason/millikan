@@ -1,5 +1,6 @@
 int level;
 int adc_level;
+char flag;
 
 void setup()
 {
@@ -8,6 +9,7 @@ void setup()
 
 	analogWriteResolution(12);
 	analogReadResolution(12);
+  pinMode(A1, INPUT);
 
 	level = 0x000; // Default to 0 output voltage
 	analogWrite(DAC0, level);
@@ -16,10 +18,19 @@ void setup()
 void loop()
 {
 	if(Serial.available() > 0) {
-  		level = int(Serial.parseFloat());
-  		analogWrite(DAC0, level);
+		flag = Serial.read();
+		if (flag == 'v') {
+  			level = int(Serial.parseFloat());
+  			analogWrite(DAC0, level);
+		} else if (flag == 'r') {
+			for (int i = 0; i < 64; i++) {
+				adc_level += analogRead(A1);
+				delay(1);
+			}
+			adc_level = adc_level / 64;
+			Serial.println(adc_level);
+		}
   	}
   	
-  	adc_level = analogRead(A7);
-  	delay(2);
+  	delay(1);
 }

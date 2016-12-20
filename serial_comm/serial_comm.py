@@ -21,5 +21,19 @@ class VoltageController(object):
         voltage -- voltage to be set in volts
         """
 
-        data = str(voltage).encode(encoding='ascii')
+        text = 'v' + str(voltage)
+        data = text.encode(encoding='ascii')
         self.ser.write(data)
+
+    def get_voltage(self):
+        """ Get the measured voltage from the monitor port of the controller
+
+        Arguments: None
+        """
+
+        data = 'r'.encode(encoding='ascii')
+        self.ser.write(data)
+        bytes_to_read = self.ser.in_waiting
+        voltage_level = self.ser.read(bytes_to_read)
+
+        return voltage_level

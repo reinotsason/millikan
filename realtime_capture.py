@@ -2,6 +2,8 @@
 import numpy as np
 import cv2
 import time
+from serial_comm import serial_comm
+
 
 velocity = None
 number = 0
@@ -43,7 +45,7 @@ def select_region(event,x,y,flags,param):
 
 #using file name cap=cv2.VideoCapture('webcam_test-001.avi')
 #using webcam have to let device index replace file name cap=cv2.VideoCapture(2)
-cap=cv2.VideoCapture(2)
+cap=cv2.VideoCapture('webcam_test-001.avi')
 cv2.namedWindow('image')
 cv2.setMouseCallback('image',select_region)
 
